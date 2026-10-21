@@ -4,7 +4,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Hanken+Grotesk:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-/* Layout concept: one long evening. The page is sequenced like the stay itself (tarde, pôr do sol, hora azul, noite),
+/* Layout concept: one long evening. The page is sequenced like the stay itself (tarde, pôr do sol, entardecer, noite),
    an A-frame mask opens the hero, and the background tone follows the sky as you scroll. Blue-hour ink with the amber of the cabin's interior glow.
    Every photo frame shares one ratio (4:5) so nothing looks out of size. */
 :root{
@@ -454,7 +454,7 @@ footer nav .ic{width:1.05rem;height:1.05rem}
 <main>
 <!-- HERO -->
 <section class="hero" id="topo">
-  <div class="hero-media"><img src="img/afrente-azul.webp" alt="O chalé da Vila Aruanna na hora azul, com a luz âmbar acesa por dentro" fetchpriority="high"></div>
+  <div class="hero-media"><img src="img/afrente-azul.webp" alt="O chalé da Vila Aruanna no entardecer, com a luz âmbar acesa por dentro" fetchpriority="high"></div>
   <div class="hero-shade"></div>
   <div class="wrap hero-copy">
     <p class="eyebrow">Montes Claros · Minas Gerais</p>
@@ -510,7 +510,7 @@ footer nav .ic{width:1.05rem;height:1.05rem}
         <div class="rail" id="rail">
           <button type="button" class="on" data-i="0"><span>Tarde</span><span class="bar"><i></i></span></button>
           <button type="button" data-i="1"><span>Pôr do sol</span><span class="bar"><i></i></span></button>
-          <button type="button" data-i="2"><span>Hora azul</span><span class="bar"><i></i></span></button>
+          <button type="button" data-i="2"><span>Entardecer</span><span class="bar"><i></i></span></button>
           <button type="button" data-i="3"><span>Noite</span><span class="bar"><i></i></span></button>
         </div>
         <div class="stage" id="stage">
@@ -533,8 +533,8 @@ footer nav .ic{width:1.05rem;height:1.05rem}
           <h3>O vidro <em>pega fogo</em>.</h3>
           <p>A cidade inteira fica dourada por alguns minutos. É a hora de parar de falar e só olhar.</p>
         </article>
-        <article class="step" data-i="2" data-icon="i-flame" data-label="Hora azul">
-          <span class="t">Hora azul</span>
+        <article class="step" data-i="2" data-icon="i-flame" data-label="Entardecer">
+          <span class="t">Entardecer</span>
           <h3>As luzes <em>acendem</em>.</h3>
           <p>A casa acende por dentro, as lâmpadas do deck ligam e o calor do aquecedor segura a conversa até tarde.</p>
         </article>
@@ -674,7 +674,7 @@ footer nav .ic{width:1.05rem;height:1.05rem}
 <section class="wrap faq" id="faq">
   <h2 class="rv">Antes de <em>reservar</em>.</h2>
   <div class="q" data-open="false"><button aria-expanded="false"><span>Como faço a reserva?</span><i class="plus"></i></button><div class="ans"><div><p>Escolha as datas na agenda e envie o pedido pelo WhatsApp. A equipe responde confirmando a disponibilidade e combina o resto com você.</p></div></div></div>
-  <div class="q" data-open="false"><button aria-expanded="false"><span>Qual a melhor hora para chegar?</span><i class="plus"></i></button><div class="ans"><div><p>No fim da tarde. Dá tempo de ver o pôr do sol no deck, a hora azul e as luzes da cidade acendendo, tudo no mesmo dia.</p></div></div></div>
+  <div class="q" data-open="false"><button aria-expanded="false"><span>Qual a melhor hora para chegar?</span><i class="plus"></i></button><div class="ans"><div><p>No fim da tarde. Dá tempo de ver o pôr do sol no deck, o entardecer e as luzes da cidade acendendo, tudo no mesmo dia.</p></div></div></div>
   <div class="q" data-open="false"><button aria-expanded="false"><span>Quantas pessoas o chalé comporta?</span><i class="plus"></i></button><div class="ans"><div><p>Capacidade e o que está incluso na diária são confirmados direto no WhatsApp, junto com as datas.</p></div></div></div>
   <div class="q" data-open="false"><button aria-expanded="false"><span>Como funcionam entrada e saída?</span><i class="plus"></i></button><div class="ans"><div><p>Os horários são combinados na reserva, e as instruções de chegada vão pelo WhatsApp antes da viagem.</p></div></div></div>
   <div class="q" data-open="false"><button aria-expanded="false"><span>Onde vejo mais fotos?</span><i class="plus"></i></button><div class="ans"><div><p>No Instagram <a href="https://www.instagram.com/vila.aruanna/" target="_blank" rel="noopener" style="color:var(--amber-2)">@vila.aruanna</a>, com os registros mais recentes da casa.</p></div></div></div>
@@ -745,7 +745,7 @@ footer nav .ic{width:1.05rem;height:1.05rem}
   $$("[data-wa]").forEach(function(a){a.href=waUrl(a.getAttribute("data-wa"));a.target="_blank";a.rel="noopener"});
 
   /* Ticker */
-  var phrases = ["Pôr do sol no deck","Banheira com vista","Luzes da cidade","Céu o dia inteiro","Silêncio na serra","Vinho no fim da tarde","Hora azul"];
+  var phrases = ["Pôr do sol no deck","Banheira com vista","Luzes da cidade","Céu o dia inteiro","Silêncio na serra","Vinho no fim da tarde","Entardecer"];
   var row = phrases.map(function(t){return "<span>"+t+"</span>"}).join("");
   $("#ticker").innerHTML = row+row+row+row;
 
@@ -754,7 +754,7 @@ footer nav .ic{width:1.05rem;height:1.05rem}
     ["deck","O deck no fim da tarde","50% 62%"],
     ["casal-varanda","A dois, na varanda","50% 70%"],
     ["vista-dia","O pôr do sol pelo vidro","45% 50%"],
-    ["afrente-azul","O chalé na hora azul","60% 40%"],
+    ["afrente-azul","O chalé no entardecer","60% 40%"],
     ["banheira","Banheira de frente para o vale","50% 62%"],
     ["casal-vinho","Vinho ao ar livre, a dois","50% 40%"],
     ["interior","Por dentro, com a luz da tarde","50% 50%"],
