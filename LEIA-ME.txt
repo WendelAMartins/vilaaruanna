@@ -1,0 +1,20 @@
+VILA ARUANNA - SITE ESTATICO (HTML + CSS + JS, sem build)
+
+ESTA VERSAO E UMA DEMONSTRACAO para apresentar ao dono do local.
+- Datas reservadas (em destaque no calendario) e avaliacoes sao EXEMPLOS, marcados na pagina com a etiqueta "Demonstracao".
+- O WhatsApp ja esta configurado para 038999604041 (55 38 99960-4041).
+
+COMO PUBLICAR
+Envie a pasta inteira (index.html, reel.mp4 e a pasta img/) para qualquer hospedagem estatica:
+Hostinger (public_html), Netlify, Vercel, Cloudflare Pages, GitHub Pages ou servidor proprio.
+O index.html precisa ficar na raiz, ao lado de img/ e reel.mp4.
+
+ANTES DE PUBLICAR DE VERDADE (no final do index.html, procure "Configuração")
+- DEMO      : troque true por false. Remove as datas e avaliacoes de exemplo e as etiquetas.
+- BOOKED    : datas reservadas reais, ex: ["2026-11-14","2026-11-15"]. Aparecem em destaque no calendario.
+- REVIEWS   : avaliacoes reais, ex: {nome:"Maria", nota:5, texto:"...", data:"out 2026", origem:"Google"}
+- WA_NUMBER : numero do WhatsApp (DDI+DDD+numero, so digitos).
+
+OBSERVACOES
+- As fontes (Google Fonts) carregam da internet.
+- O video (reel.mp4) e do @italovianav: confirme a autorizacao de uso ou remova a secao "Por dentro".

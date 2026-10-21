@@ -1,0 +1,1117 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#070b14"><meta name="description" content="Vila Aruanna: um chalé de vidro com vista para Montes Claros."><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23070b14'/%3E%3Cpath d='M16 6 6 26h20z' fill='none' stroke='%23f2a93b' stroke-width='2'/%3E%3C/svg%3E"><title>Vila Aruanna</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Hanken+Grotesk:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout concept: one long evening. The page is sequenced like the stay itself (tarde, pôr do sol, hora azul, noite),
+   an A-frame mask opens the hero, and the background tone follows the sky as you scroll. Blue-hour ink with the amber of the cabin's interior glow.
+   Every photo frame shares one ratio (4:5) so nothing looks out of size. */
+:root{
+  --ink:#070b14;
+  --ink-2:#0c1220;
+  --dusk:#1a2038;
+  --fg:#eef0f6;
+  --mute:#a0a9bd;
+  --line:rgba(238,240,246,.13);
+  --amber:#f2a93b;
+  --amber-2:#ffc76b;
+  --glow:rgba(242,169,59,.32);
+  --display:"Instrument Serif","Times New Roman",serif;
+  --body:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"DM Mono",ui-monospace,Menlo,monospace;
+  --ease:cubic-bezier(.2,.7,.1,1);
+  --ease-io:cubic-bezier(.77,0,.18,1);
+  --ar:4/5;
+  --sec:clamp(3.5rem,7vw,6.5rem);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:5rem}
+body{margin:0;background:var(--ink);color:var(--fg);font-family:var(--body);font-size:1.0625rem;line-height:1.6;font-weight:400;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img,video{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
+:focus-visible{outline:2px solid var(--amber-2);outline-offset:3px;border-radius:4px}
+::selection{background:var(--amber);color:var(--ink)}
+.wrap{width:100%;max-width:80rem;margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.eyebrow{font-family:var(--mono);font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;color:var(--amber-2);margin:0 0 1.25rem;display:flex;align-items:center;gap:.7rem}
+.eyebrow::before{content:"";width:1.6rem;height:1px;background:var(--amber)}
+h1,h2,h3{font-family:var(--display);font-weight:400;margin:0;text-wrap:balance;letter-spacing:-.01em}
+h2{font-size:clamp(2.4rem,5.4vw,4.6rem);line-height:1}
+h2 em,h1 em,h3 em{font-style:italic;color:var(--amber-2)}
+p{margin:0;text-wrap:pretty}
+.ic{width:1.35rem;height:1.35rem;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex:none}
+
+/* ---------- reveals: hidden only while JS can reveal them, never re-hidden ---------- */
+.js .rv{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform 1.1s var(--ease)}
+.js .rv.in{opacity:1;transform:none}
+.js .fr{clip-path:inset(8% 6% 8% 6% round 1.4rem);opacity:.25;transition:clip-path 1.3s var(--ease),opacity 1s ease}
+.js .fr.in{clip-path:inset(0 0 0 0 round 1.4rem);opacity:1}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;gap:.7rem;padding:1rem 1.6rem;border-radius:999px;font-weight:500;font-size:.95rem;letter-spacing:.01em;transition:transform .5s var(--ease),background .3s,box-shadow .4s,border-color .3s,opacity .3s;will-change:transform}
+.btn-amber{background:linear-gradient(135deg,var(--amber-2),var(--amber));color:#1b1204;box-shadow:0 0 0 0 var(--glow),0 12px 40px -12px var(--glow)}
+.btn-amber:hover{box-shadow:0 0 0 8px rgba(242,169,59,.14),0 18px 50px -10px var(--glow)}
+.btn-ghost{border:1px solid var(--line);background:rgba(238,240,246,.05);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.btn-ghost:hover{border-color:rgba(238,240,246,.4);background:rgba(238,240,246,.1)}
+.btn .ic{width:1.15rem;height:1.15rem}
+.btn .arrow{transition:transform .5s var(--ease)}
+.btn:hover .arrow{transform:translateX(4px)}
+
+/* ---------- progress + nav ---------- */
+.progress{position:fixed;left:0;top:0;height:2px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--amber),var(--amber-2));z-index:70;pointer-events:none}
+.nav{position:fixed;inset:0 0 auto 0;z-index:50;padding-top:env(safe-area-inset-top,0px);transition:transform .6s var(--ease),background .4s,border-color .4s;border-bottom:1px solid transparent}
+.nav.scrolled{background:rgba(7,11,20,.72);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-color:var(--line)}
+.nav.hide{transform:translateY(-110%)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:4.5rem}
+.brand{display:flex;align-items:center;gap:.8rem}
+.brand svg{width:2rem;height:2rem}
+.brand b{font-family:var(--display);font-weight:400;font-size:1.55rem;letter-spacing:.01em;line-height:1}
+.brand small{display:block;font-family:var(--mono);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--mute);margin-top:.2rem}
+.links{display:flex;gap:1.7rem;font-size:.9rem;color:var(--mute)}
+.links a{position:relative;padding:.3rem 0;transition:color .3s}
+.links a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--amber);transform:scaleX(0);transform-origin:0 50%;transition:transform .5s var(--ease)}
+.links a:hover{color:var(--fg)}
+.links a:hover::after{transform:scaleX(1)}
+.nav .btn{padding:.7rem 1.2rem;font-size:.85rem}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:min(94svh,60rem);display:flex;flex-direction:column;justify-content:flex-end;padding-top:7rem;padding-bottom:2.2rem;overflow:hidden;isolation:isolate}
+.hero::before{content:"";position:absolute;inset:0;z-index:-3;background:radial-gradient(60% 70% at 50% 40%,rgba(242,169,59,.16),transparent 70%),var(--ink)}
+.hero-media{position:absolute;inset:0;z-index:-2;clip-path:polygon(50% 0,50% 0,68% 100%,32% 100%);animation:aOpen 2.1s var(--ease-io) .25s both}
+.hero-media img{width:100%;height:100%;object-fit:cover;object-position:60% 42%;transform:scale(1.28);animation:heroZoom 3.4s var(--ease) .25s both;will-change:transform}
+.hero-shade{position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(7,11,20,.7) 0%,rgba(7,11,20,.25) 48%,transparent 70%),linear-gradient(180deg,rgba(7,11,20,.35) 0%,transparent 28%,transparent 55%,var(--ink) 100%)}
+@keyframes aOpen{to{clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}}
+@keyframes heroZoom{to{transform:scale(1.04)}}
+.hero-copy{position:relative}
+.hero .eyebrow{animation:fadeUp 1s var(--ease) 1.2s both}
+.hero h1{font-size:clamp(3.1rem,9.4vw,8.6rem);line-height:.96;max-width:12ch;text-shadow:0 2px 40px rgba(7,11,20,.35)}
+.ln{display:block;overflow:hidden;padding-bottom:.1em;margin-bottom:-.1em}
+.ln>span{display:block;transform:translateY(110%);animation:lineUp 1.2s var(--ease) both;animation-delay:calc(1.25s + var(--i)*.13s)}
+@keyframes lineUp{to{transform:none}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.lede{max-width:34rem;margin-top:1.8rem;font-size:clamp(1.02rem,1.5vw,1.2rem);color:rgba(238,240,246,.88);animation:fadeUp 1.1s var(--ease) 1.85s both}
+.cta-row{display:flex;flex-wrap:wrap;gap:.9rem;margin-top:2rem;animation:fadeUp 1.1s var(--ease) 2.05s both}
+.hero-meta{display:flex;flex-wrap:wrap;gap:.6rem 2.2rem;margin-top:3.2rem;padding-top:1.4rem;border-top:1px solid var(--line);font-family:var(--mono);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);animation:fadeUp 1.1s var(--ease) 2.3s both}
+.hero-meta span{display:inline-flex;align-items:center;gap:.55rem}
+.hero-meta i{width:.4rem;height:.4rem;border-radius:50%;background:var(--amber);box-shadow:0 0 10px var(--amber)}
+
+/* ---------- ticker ---------- */
+.ticker{border-block:1px solid var(--line);overflow:hidden;background:var(--ink-2);padding-block:1.05rem;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.ticker-track{display:flex;width:max-content;gap:2.2rem;animation:tick 42s linear infinite}
+.ticker:hover .ticker-track{animation-play-state:paused}
+.ticker span{display:inline-flex;align-items:center;gap:2.2rem;white-space:nowrap;font-family:var(--display);font-style:italic;font-size:1.5rem;color:var(--mute)}
+.ticker span::after{content:"";width:.7rem;height:.7rem;background:var(--amber);clip-path:polygon(50% 0,100% 100%,0 100%)}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+/* ---------- statement + duo ---------- */
+.statement{padding-block:var(--sec) clamp(2.5rem,5vw,4rem)}
+.statement p{font-family:var(--display);font-size:clamp(2rem,4.8vw,4.1rem);line-height:1.1;max-width:30ch;letter-spacing:-.015em}
+.statement .w{opacity:.16;transition:opacity .6s var(--ease)}
+.statement .w.on{opacity:1}
+.statement em{font-style:italic;color:var(--amber-2)}
+.frame{position:relative;overflow:hidden;border-radius:1.4rem;background:var(--ink-2);isolation:isolate;aspect-ratio:var(--ar)}
+.frame img{width:100%;height:100%;object-fit:cover;transform:scale(1.12);will-change:transform}
+.frame::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);pointer-events:none}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1rem,3vw,2.5rem);padding-bottom:var(--sec)}
+.duo figure{margin:0;display:flex;flex-direction:column;gap:1.3rem}
+.duo figcaption{color:var(--mute);max-width:28rem;font-size:1.02rem}
+.duo figcaption strong{color:var(--fg);font-weight:500}
+
+/* ---------- day scene ---------- */
+.scene{position:relative;background-color:#17140f;transition:background-color 1.4s ease;isolation:isolate}
+.scene[data-phase="1"]{background-color:#25160f}
+.scene[data-phase="2"]{background-color:#0b1428}
+.scene[data-phase="3"]{background-color:#060913}
+.scene::before,.scene::after{content:"";position:absolute;left:0;right:0;height:7rem;z-index:0;pointer-events:none}
+.scene::before{top:0;background:linear-gradient(var(--ink),transparent)}
+.scene::after{bottom:0;background:linear-gradient(transparent,var(--ink))}
+.scene>.wrap{position:relative;z-index:1}
+.scene-head{padding-top:var(--sec);padding-bottom:2.5rem;max-width:44rem}
+.scene-head p{margin-top:1.2rem;color:var(--mute);max-width:34rem}
+.scene-grid{--sw:min(34rem,calc((100svh - 12rem)*.8));display:grid;grid-template-columns:minmax(0,var(--sw)) minmax(0,1fr);gap:clamp(2rem,6vw,6rem);align-items:start}
+.stage-col{position:sticky;top:5.5rem;align-self:start}
+.rail{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;margin-bottom:.9rem;width:100%}
+.rail button{display:flex;flex-direction:column;gap:.55rem;text-align:left;font-family:var(--mono);font-size:.66rem;letter-spacing:.13em;text-transform:uppercase;color:rgba(238,240,246,.45);transition:color .5s;padding:.2rem 0}
+.rail button:hover{color:var(--fg)}
+.rail button.on{color:var(--fg)}
+.rail .bar{display:block;height:3px;border-radius:3px;background:rgba(255,255,255,.16);overflow:hidden}
+.rail .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--amber),var(--amber-2))}
+.stage{position:relative;aspect-ratio:var(--ar);width:100%;border-radius:1.6rem;overflow:hidden;background:#000;box-shadow:0 40px 90px -30px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.08)}
+.stage>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .9s ease}
+.stage>img.on{opacity:1}
+.stage::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.28),transparent 28%,transparent 62%,rgba(0,0,0,.65));pointer-events:none}
+.stage-tag{position:absolute;left:1rem;top:1rem;z-index:2;display:inline-flex;align-items:center;gap:.6rem;padding:.55rem 1rem .55rem .8rem;border-radius:999px;background:rgba(7,11,20,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--line);font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase}
+.stage-tag .ic{width:1.05rem;height:1.05rem;color:var(--amber-2)}
+.cap{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:1.2rem 1.2rem 1.3rem;display:none}
+.cap h3{font-size:1.9rem;line-height:1}
+.cap p{margin-top:.5rem;font-size:.92rem;color:rgba(238,240,246,.82)}
+.steps{padding-bottom:3rem}
+.step{min-height:78svh;display:flex;flex-direction:column;justify-content:center;gap:1rem;opacity:.3;transition:opacity .7s ease}
+.step.active{opacity:1}
+.step .t{font-family:var(--mono);font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--amber-2)}
+.step h3{font-size:clamp(2.2rem,4.4vw,3.8rem);line-height:1}
+.step p{color:var(--mute);max-width:26rem}
+
+/* ---------- a casa ---------- */
+.pair{padding-block:var(--sec);display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(2rem,6vw,6rem);align-items:center}
+.pair h2{margin-bottom:1.4rem}
+.pair .lead{color:var(--mute);max-width:32rem;margin-bottom:2rem}
+.feats{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--line);margin-bottom:2.2rem}
+.feat{display:flex;gap:.9rem;align-items:flex-start;padding:1.1rem .5rem 1.1rem 0;border-bottom:1px solid var(--line);transition:transform .5s var(--ease)}
+.feat:hover{transform:translateX(6px)}
+.feat .ic{color:var(--amber-2);margin-top:.15rem}
+.feat b{display:block;font-weight:500;font-size:.98rem;line-height:1.3}
+.feat span{display:block;font-size:.85rem;color:var(--mute);line-height:1.4;margin-top:.15rem}
+
+/* ---------- reel ---------- */
+.reel{background:var(--ink-2);border-block:1px solid var(--line);position:relative;overflow:hidden}
+.reel::before{content:"";position:absolute;width:70rem;height:70rem;max-width:140vw;left:50%;top:50%;transform:translate(-50%,-50%);background:radial-gradient(closest-side,rgba(242,169,59,.11),rgba(242,169,59,.04) 60%,transparent);pointer-events:none}
+.reel-in{position:relative;display:grid;grid-template-columns:1fr auto;gap:clamp(2rem,7vw,7rem);align-items:center;padding-block:var(--sec)}
+.reel h2{margin-bottom:1.4rem}
+.reel p{color:var(--mute);max-width:30rem}
+.credit{margin-top:1.8rem;font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+.credit a{color:var(--amber-2);border-bottom:1px solid rgba(255,199,107,.4)}
+.phone{position:relative;width:min(21rem,78vw);aspect-ratio:9/19;border-radius:3rem;padding:.7rem;background:linear-gradient(160deg,#252c44,#0d1220);box-shadow:0 50px 100px -30px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.12),inset 0 0 0 1px rgba(255,255,255,.05);transform:rotate(2.5deg);transition:transform .9s var(--ease)}
+.phone:hover{transform:rotate(0)}
+.phone-screen{position:relative;width:100%;height:100%;border-radius:2.4rem;overflow:hidden;background:#000}
+.phone video{width:100%;height:100%;object-fit:cover}
+.phone .island{position:absolute;top:.55rem;left:50%;transform:translateX(-50%);width:28%;height:1.3rem;border-radius:99px;background:#000;z-index:3}
+.snd{position:absolute;right:.9rem;bottom:.9rem;z-index:3;width:2.7rem;height:2.7rem;border-radius:50%;display:grid;place-items:center;background:rgba(7,11,20,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.2);transition:background .3s,transform .4s var(--ease)}
+.snd:hover{background:rgba(7,11,20,.8);transform:scale(1.08)}
+.snd .ic{width:1.15rem;height:1.15rem}
+
+/* ---------- gallery: one ratio for every tile ---------- */
+.gallery{padding-block:var(--sec)}
+.g-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:1.5rem;margin-bottom:2.6rem}
+.g-head a.ig{display:inline-flex;align-items:center;gap:.7rem;color:var(--amber-2);font-size:.95rem;border-bottom:1px solid rgba(255,199,107,.35);padding-bottom:.25rem;transition:border-color .3s,gap .4s var(--ease)}
+.g-head a.ig:hover{border-color:var(--amber-2);gap:1rem}
+.g-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.g-item{position:relative;display:block;width:100%;aspect-ratio:var(--ar);border-radius:1.1rem;overflow:hidden;background:var(--ink-2);cursor:zoom-in}
+.g-item img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.g-item::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(7,11,20,.82));opacity:0;transition:opacity .5s}
+.g-item figcaption{position:absolute;left:1rem;right:1rem;bottom:.9rem;z-index:2;font-size:.82rem;opacity:0;transform:translateY(10px);transition:opacity .5s,transform .6s var(--ease);text-align:left}
+.g-item:hover img{transform:scale(1.06)}
+.g-item:hover::after,.g-item:hover figcaption,.g-item:focus-visible::after,.g-item:focus-visible figcaption{opacity:1;transform:none}
+
+/* ---------- avaliações ---------- */
+.reviews{padding-block:var(--sec)}
+.rev-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:1.5rem 3rem;margin-bottom:2.2rem}
+.rev-side{display:flex;align-items:center;gap:1.8rem}
+.reviews h2{margin-bottom:1.2rem}
+.reviews .lead{color:var(--mute);max-width:26rem}
+.score{display:flex;align-items:flex-end;gap:1.2rem}
+.score b{font-family:var(--display);font-weight:400;font-size:5.5rem;line-height:.8}
+.score small{display:block;font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);margin-top:.5rem}
+.stars{display:inline-flex;gap:.18rem;color:var(--amber-2)}
+.stars .ic{width:1.05rem;height:1.05rem}
+.star-f{fill:currentColor;stroke:none}
+.rev-track{display:flex;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;padding:.2rem 0}
+.rev-track::-webkit-scrollbar{display:none}
+.rev-track:focus-visible{outline-offset:6px}
+.rev-dots{display:flex;justify-content:center;gap:.5rem;margin-top:1.4rem}
+.rev-dots button{width:.5rem;height:.5rem;border-radius:99px;background:rgba(238,240,246,.25);transition:width .5s var(--ease),background .4s}
+.rev-dots button.on{width:1.8rem;background:var(--amber-2)}
+.rev{flex:0 0 calc((100% - 2rem)/3);scroll-snap-align:start;display:flex;flex-direction:column;border:1px solid var(--line);border-radius:1.3rem;padding:1.6rem;background:linear-gradient(160deg,rgba(255,255,255,.04),rgba(255,255,255,.01))}
+.rev p{flex:1;font-family:var(--display);font-size:1.45rem;line-height:1.25;margin:.9rem 0 1.4rem}
+.rev-meta{display:flex;justify-content:space-between;gap:1rem;font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+.rev-empty{flex:0 0 100%;border:1px dashed rgba(238,240,246,.22);border-radius:1.6rem;padding:clamp(1.6rem,4vw,3rem);display:flex;flex-direction:column;gap:1.3rem;align-items:flex-start}
+.rev-empty .stars{color:rgba(238,240,246,.35)}
+.rev-empty .stars .ic{width:1.8rem;height:1.8rem}
+.rev-empty h3{font-size:clamp(1.7rem,3vw,2.4rem);line-height:1.1}
+.rev-empty p{color:var(--mute);max-width:30rem}
+.rev-empty .row{display:flex;flex-wrap:wrap;gap:.8rem}
+
+.demo-tag{display:inline-flex;align-self:flex-start;margin-top:1.1rem;padding:.4rem .85rem;border:1px dashed rgba(255,199,107,.55);border-radius:999px;font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber-2)}
+/* ---------- agenda ---------- */
+.agenda{padding-bottom:var(--sec)}
+.ag-head{max-width:40rem;margin-bottom:2.6rem}
+.ag-head p{margin-top:1.1rem;color:var(--mute)}
+.ag-card{display:grid;grid-template-columns:1.6fr 1fr;border:1px solid var(--line);border-radius:2rem;overflow:hidden;background:var(--ink-2)}
+.cal{padding:clamp(1.2rem,3vw,2.4rem)}
+.cal-top{display:flex;flex-wrap:wrap;gap:.8rem;align-items:center;justify-content:space-between;margin-bottom:1.2rem}
+.cal-nav{display:flex;gap:.5rem}
+.cal-nav button{width:2.6rem;height:2.6rem;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;transition:background .3s,border-color .3s,opacity .3s,transform .4s var(--ease)}
+.cal-nav button:hover:not(:disabled){background:rgba(238,240,246,.1);border-color:rgba(238,240,246,.4)}
+.cal-nav button:disabled{opacity:.25;cursor:default}
+.cal-nav .prev .ic{transform:rotate(180deg)}
+.cal-legend{display:flex;flex-wrap:wrap;gap:.5rem 1.2rem;font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+.cal-legend i{display:inline-block;width:.7rem;height:.7rem;border-radius:50%;vertical-align:-1px;margin-right:.45rem;background:linear-gradient(135deg,var(--amber-2),var(--amber))}
+.cal-legend i.o{background:rgba(238,240,246,.14);box-shadow:inset 0 0 0 1px rgba(238,240,246,.35)}
+.cal-legend i.r{background:linear-gradient(135deg,#ff7a59,#e0472f)}
+.months{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(1.2rem,3vw,2.6rem);transition:opacity .35s ease,transform .5s var(--ease)}
+.months.swap{opacity:0;transform:translateY(8px)}
+.month h4 small{display:inline-block;margin-left:.8rem;padding:.2rem .6rem;border-radius:999px;background:rgba(255,122,89,.16);color:#ffb4a2;font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;vertical-align:.35em}
+.month h4{white-space:nowrap;margin:0 0 .8rem;font-family:var(--display);font-weight:400;font-size:1.7rem;text-transform:capitalize}
+.dow,.days{display:grid;grid-template-columns:repeat(7,1fr)}
+.dow span{text-align:center;font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;color:var(--mute);padding-bottom:.5rem;text-transform:uppercase}
+.d{position:relative;aspect-ratio:1;display:grid;place-items:center;font-size:.92rem;font-variant-numeric:tabular-nums}
+.d .n{position:relative;z-index:1;width:min(88%,2.6rem);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;transition:background .3s,color .3s,transform .4s var(--ease)}
+.d.empty{pointer-events:none}
+.d:not(.off):not(.empty):not(.start):not(.end):hover .n{background:rgba(238,240,246,.12);transform:scale(1.08)}
+.d.off{color:rgba(238,240,246,.22);cursor:default;text-decoration:line-through;text-decoration-color:rgba(238,240,246,.12)}
+.d.off.booked{color:#ffd0c4;text-decoration:none;font-weight:600;cursor:not-allowed}
+.d.booked .n{background:linear-gradient(135deg,#ff7a59,#e0472f);box-shadow:0 6px 18px -6px rgba(255,107,74,.7),inset 0 0 0 1px rgba(255,255,255,.18)}
+.d.booked .n::before{content:"";position:absolute;inset:-3px;border-radius:50%;border:1px solid rgba(255,122,89,.35)}
+.d.booked.today .n::after{background:#fff}
+.d.today .n::after{content:"";position:absolute;bottom:.28rem;width:.25rem;height:.25rem;border-radius:50%;background:var(--amber-2)}
+.d.in{background:rgba(242,169,59,.14)}
+.d.start,.d.end{color:#1b1204}
+.d.start .n,.d.end .n{background:linear-gradient(135deg,var(--amber-2),var(--amber));transform:none;box-shadow:0 8px 24px -8px var(--glow)}
+.d.start.has-range{background:linear-gradient(90deg,transparent 50%,rgba(242,169,59,.14) 50%)}
+.d.end{background:linear-gradient(90deg,rgba(242,169,59,.14) 50%,transparent 50%)}
+.d.start.today .n::after,.d.end.today .n::after{background:#1b1204}
+.panel{border-left:1px solid var(--line);padding:clamp(1.4rem,3vw,2.4rem);display:flex;flex-direction:column;gap:1.4rem;background:linear-gradient(180deg,rgba(242,169,59,.05),transparent 60%)}
+.panel h3{font-size:2rem;line-height:1}
+.dates{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:1rem;overflow:hidden}
+.dates div{padding:.9rem 1rem}
+.dates div+div{border-left:1px solid var(--line)}
+.dates small,.field small{display:block;font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:.25rem}
+.dates b{font-weight:500;font-size:1rem}
+.dates b.ph{color:rgba(238,240,246,.4);font-weight:400}
+.nights{font-family:var(--display);font-size:1.4rem;color:var(--amber-2);min-height:1.8rem}
+.field{display:flex;align-items:center;justify-content:space-between;gap:1rem;border:1px solid var(--line);border-radius:1rem;padding:.7rem 1rem}
+.field small{margin:0}
+.step-g{display:flex;align-items:center;gap:.9rem}
+.step-g button{width:2.2rem;height:2.2rem;border-radius:50%;border:1px solid var(--line);font-size:1.1rem;line-height:1;display:grid;place-items:center;transition:background .3s}
+.step-g button:hover:not(:disabled){background:rgba(238,240,246,.12)}
+.step-g button:disabled{opacity:.3;cursor:default}
+.step-g output{min-width:1.4rem;text-align:center;font-variant-numeric:tabular-nums;font-weight:500}
+.panel .btn{justify-content:center;width:100%}
+.panel .clear{align-self:flex-start;font-size:.82rem;color:var(--mute);border-bottom:1px solid var(--line);transition:color .3s;visibility:hidden}
+.panel .clear.show{visibility:visible}
+.panel .clear:hover{color:var(--fg)}
+.panel .note{font-size:.82rem;color:var(--mute);line-height:1.5;margin-top:auto}
+
+/* ---------- location ---------- */
+.where{padding-bottom:var(--sec)}
+.where-card{position:relative;border-radius:2rem;overflow:hidden;min-height:28rem;display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);background:var(--ink-2)}
+.where-txt{position:relative;z-index:2;padding:clamp(1.8rem,5vw,4rem);display:flex;flex-direction:column;justify-content:center;gap:1.4rem}
+.where-txt p{color:var(--mute);max-width:28rem}
+.coords{font-family:var(--mono);font-size:.82rem;letter-spacing:.1em;color:var(--fg);display:flex;align-items:center;gap:.7rem}
+.coords .ic{color:var(--amber-2)}
+.where-img{position:relative;min-height:18rem}
+.where-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.where-img::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,var(--ink-2),transparent 45%)}
+.pin{position:absolute;z-index:2;left:58%;top:62%;width:1rem;height:1rem;border-radius:50%;background:var(--amber-2);box-shadow:0 0 0 4px rgba(255,199,107,.3)}
+.pin::before,.pin::after{content:"";position:absolute;inset:0;border-radius:50%;border:1px solid var(--amber-2);animation:ping 3s ease-out infinite}
+.pin::after{animation-delay:1.5s}
+@keyframes ping{from{transform:scale(1);opacity:.9}to{transform:scale(7);opacity:0}}
+
+/* ---------- faq ---------- */
+.faq{padding-bottom:var(--sec);max-width:56rem}
+.faq h2{margin-bottom:2.2rem}
+.q{border-top:1px solid var(--line)}
+.q:last-child{border-bottom:1px solid var(--line)}
+.q button{width:100%;display:flex;justify-content:space-between;align-items:center;gap:1.5rem;padding:1.4rem 0;text-align:left;font-family:var(--display);font-size:clamp(1.4rem,2.6vw,1.9rem);line-height:1.15;transition:color .3s}
+.q button:hover{color:var(--amber-2)}
+.q .plus{position:relative;width:1.2rem;height:1.2rem;flex:none}
+.q .plus::before,.q .plus::after{content:"";position:absolute;left:0;right:0;top:50%;height:1.5px;background:currentColor;transition:transform .5s var(--ease)}
+.q .plus::after{transform:rotate(90deg)}
+.q[data-open="true"] .plus::after{transform:rotate(0)}
+.q .ans{display:grid;grid-template-rows:0fr;transition:grid-template-rows .6s var(--ease)}
+.q[data-open="true"] .ans{grid-template-rows:1fr}
+.q .ans>div{overflow:hidden}
+.q .ans p{padding-bottom:1.5rem;color:var(--mute);max-width:40rem}
+
+/* ---------- final cta ---------- */
+.final{position:relative;min-height:34rem;display:grid;place-items:center;text-align:center;overflow:hidden;isolation:isolate;padding-block:6rem}
+.final img{position:absolute;inset:-8% 0;width:100%;height:116%;object-fit:cover;z-index:-2}
+.final::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(70% 70% at 50% 50%,rgba(7,11,20,.28),rgba(7,11,20,.7) 85%),linear-gradient(180deg,var(--ink),transparent 22%,transparent 78%,var(--ink))}
+.final h2{font-size:clamp(2.8rem,8vw,7rem);max-width:13ch;margin:0 auto 1.6rem}
+.final p{color:rgba(238,240,246,.82);max-width:30rem;margin:0 auto 2.2rem}
+
+footer{border-top:1px solid var(--line);padding-block:2.6rem}
+footer .wrap{display:flex;flex-wrap:wrap;gap:1.4rem 3rem;justify-content:space-between;align-items:center;color:var(--mute);font-size:.88rem}
+footer .brand b{color:var(--fg)}
+footer nav{display:flex;gap:1.6rem}
+footer nav a{display:inline-flex;align-items:center;gap:.5rem;transition:color .3s}
+footer nav a:hover{color:var(--amber-2)}
+footer nav .ic{width:1.05rem;height:1.05rem}
+
+/* ---------- fab ---------- */
+.fab{position:fixed;right:calc(1rem + env(safe-area-inset-right,0px));bottom:calc(1rem + env(safe-area-inset-bottom,0px));z-index:40;width:3.6rem;height:3.6rem;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--amber-2),var(--amber));color:#1b1204;box-shadow:0 14px 40px -8px var(--glow);transition:transform .5s var(--ease),opacity .5s;opacity:0;transform:translateY(20px) scale(.8);pointer-events:none}
+.fab.show{opacity:1;transform:none;pointer-events:auto}
+.fab:hover{transform:scale(1.1)}
+.fab .ic{width:1.6rem;height:1.6rem}
+
+/* ---------- lightbox ---------- */
+.lb{position:fixed;inset:0;z-index:80;background:rgba(4,6,12,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);display:grid;place-items:center;opacity:0;visibility:hidden;transition:opacity .45s ease,visibility .45s;padding:max(1rem,env(safe-area-inset-top,0px)) max(1rem,env(safe-area-inset-right,0px)) max(1rem,env(safe-area-inset-bottom,0px)) max(1rem,env(safe-area-inset-left,0px))}
+.lb.open{opacity:1;visibility:visible}
+.lb figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:1rem;max-width:100%}
+.lb img{max-width:min(92vw,78rem);max-height:78svh;width:auto;height:auto;border-radius:1rem;box-shadow:0 40px 100px -20px #000;transform:scale(.96);transition:transform .7s var(--ease),opacity .35s;object-fit:contain}
+.lb.open img{transform:none}
+.lb img.swap{opacity:0;transform:scale(.98)}
+.lb figcaption{font-size:.9rem;color:var(--mute);text-align:center}
+.lb figcaption b{font-family:var(--mono);font-weight:400;color:var(--amber-2);letter-spacing:.14em;margin-right:.8rem}
+.lb button{position:absolute;width:3.2rem;height:3.2rem;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line);background:rgba(238,240,246,.06);transition:background .3s,transform .4s var(--ease)}
+.lb button:hover{background:rgba(238,240,246,.16);transform:scale(1.08)}
+.lb .x{top:max(1rem,env(safe-area-inset-top,0px));right:max(1rem,env(safe-area-inset-right,0px))}
+.lb .p{left:max(1rem,env(safe-area-inset-left,0px));top:50%;margin-top:-1.6rem}
+.lb .n{right:max(1rem,env(safe-area-inset-right,0px));top:50%;margin-top:-1.6rem}
+.lb .p .ic{transform:rotate(180deg)}
+
+/* ---------- responsive ---------- */
+@media (max-width:75rem){.links{gap:1.2rem;font-size:.85rem}}
+@media (max-width:62rem){
+  .rev{flex-basis:calc((100% - 1rem)/2)}
+  .links{display:none}
+  .g-grid{grid-template-columns:repeat(3,1fr)}
+  .pair,.reel-in,.where-card,.reviews,.ag-card{grid-template-columns:1fr}
+  .reel-in{justify-items:start}
+  .phone{justify-self:center;transform:none}
+  .where-img{order:-1;min-height:16rem}
+  .where-img::before{background:linear-gradient(0deg,var(--ink-2),transparent 55%)}
+  .months{grid-template-columns:1fr}
+  .panel{border-left:0;border-top:1px solid var(--line)}
+  .scene-grid{grid-template-columns:minmax(0,1fr);gap:0}
+  .stage-col{top:.6rem;z-index:4;padding-top:max(.4rem,env(safe-area-inset-top,0px));background:linear-gradient(var(--scene-bg,transparent) 85%,transparent)}
+  .rail{width:100%;margin-bottom:.6rem}
+  .rail button{font-size:.58rem;letter-spacing:.08em}
+  .stage{width:100%;aspect-ratio:4/4.6;max-height:62svh}
+  .cap{display:block}
+  .steps{padding-bottom:1rem}
+  .step{min-height:36svh;opacity:1}
+  .step>*{display:none}
+  .pair .frame{max-width:30rem}
+}
+@media (max-width:40rem){
+  .rev{flex-basis:100%}
+  .rev-side{width:100%;justify-content:space-between}
+  body{font-size:1rem}
+  .brand small{display:none}
+  .nav .btn span{display:none}
+  .nav .btn{padding:.7rem .9rem}
+  .hero{padding-top:6rem;min-height:92svh}
+  .hero-media img{object-position:66% 40%}
+  .hero-shade{background:linear-gradient(180deg,rgba(7,11,20,.5) 0,rgba(7,11,20,.15) 28%,rgba(7,11,20,.78) 58%,var(--ink) 100%)}
+  .hero-meta{margin-top:2.2rem}
+  .hero-meta span:nth-child(n+3){display:none}
+  .g-grid{grid-template-columns:repeat(2,1fr);gap:.6rem}
+  .g-item{border-radius:.8rem}
+  .feats{grid-template-columns:1fr}
+  .duo{grid-template-columns:1fr;row-gap:2.2rem}
+  .score b{font-size:4.2rem}
+  .fab{width:3.1rem;height:3.1rem}
+  .fab .ic{width:1.4rem;height:1.4rem}
+  .panel .note{margin-top:0}
+  .cal{padding:1rem}
+  .d{font-size:.86rem}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .ticker-track{animation:none}
+  .statement .w{opacity:1}
+}
+</style>
+<script>document.documentElement.classList.add("js")</script>
+
+</head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-bath" viewBox="0 0 24 24"><path d="M3 12h18v1.5a5.5 5.5 0 0 1-5.5 5.5h-7A5.5 5.5 0 0 1 3 13.5V12z"/><path d="M6 12V6.5a2.2 2.2 0 0 1 4.2-1"/><path d="M7 19l-1 2M17 19l1 2"/></symbol>
+    <symbol id="i-glass" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="1.5"/><path d="M12 3v18M4 12h16M7 8l3-2.5M14.5 18l3-2.5"/></symbol>
+    <symbol id="i-deck" viewBox="0 0 24 24"><path d="M3 17h18M5 17v4M19 17v4M4 11.5h16M7 11.5V17M12 11.5V17M17 11.5V17"/><path d="M6 7.5h.01M12 6h.01M18 7.5h.01"/></symbol>
+    <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 3c.8 3.8 5 5.2 5 10a5 5 0 0 1-10 0c0-2 .9-3.2 2-4.2.1 1.8.9 2.8 2 3 .4-3.6-.9-5.6 1-8.8z"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></symbol>
+    <symbol id="i-dusk" viewBox="0 0 24 24"><path d="M4 17h16M7 17a5 5 0 0 1 10 0"/><path d="M12 6v2.5M5.2 9.8l1.6 1.4M18.8 9.8l-1.6 1.4M2.5 17h.01M21.5 17h.01"/><path d="M8 20.5h8"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3z"/><path d="M19 17v3M17.5 18.5h3"/></symbol>
+    <symbol id="i-starr" viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8L12 2.8z"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6.200 7-11.200a7 7 0 1 0-14 0C5 14.800 12 21 12 21z"/><circle cx="12" cy="9.800" r="2.400"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-quiet" viewBox="0 0 24 24"><path d="M2.500 19.500l6.500-11 4 6.500 2.500-3.500 6 8z"/><path d="M17 6.500h.01"/></symbol>
+    <symbol id="i-ig" viewBox="0 0 24 24"><rect x="3.500" y="3.500" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17 7h.01"/></symbol>
+    <symbol id="i-wa" viewBox="0 0 24 24"><path d="M3 21l1.600-4.700A8.500 8.500 0 1 1 8 19.600L3 21z"/><path d="M9.200 8.500c-.3.800-.1 1.900 1 3.200s2.300 2 3.300 2.200c.8.100 1.500-.4 1.700-1.100l-1.600-1-.8.700c-.7-.3-1.600-1.100-2-1.900l.7-.8-.9-1.700-1.400.4z"/></symbol>
+    <symbol id="i-sound" viewBox="0 0 24 24"><path d="M4 9.500h3.500L12 5.500v13l-4.500-4H4z"/><path d="M15.500 9a4.200 4.200 0 0 1 0 6M18 6.500a8 8 0 0 1 0 11"/></symbol>
+    <symbol id="i-mute" viewBox="0 0 24 24"><path d="M4 9.500h3.500L12 5.500v13l-4.500-4H4z"/><path d="M16 9.500l5 5M21 9.500l-5 5"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5L5 19"/></symbol>
+    <symbol id="i-aframe" viewBox="0 0 32 32"><path d="M16 3L4 29h24L16 3z"/><path d="M16 3l5 26"/><path d="M9.500 19h13"/></symbol>
+  </defs>
+</svg>
+
+<div class="progress" id="progress"></div>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a href="#topo" class="brand" aria-label="Vila Aruanna, início">
+      <svg viewBox="0 0 32 32" fill="none" stroke="#ffc76b" stroke-width="1.6" stroke-linejoin="round"><use href="#i-aframe"/></svg>
+      <span><b>Vila Aruanna</b><small>Montes Claros · MG</small></span>
+    </a>
+    <nav class="links" aria-label="Seções">
+      <a href="#dia">Um dia na Vila</a>
+      <a href="#casal">A casa</a>
+      <a href="#fotos">Fotos</a>
+      <a href="#avaliacoes">Avaliações</a>
+      <a href="#agenda">Agenda</a>
+      <a href="#local">Como chegar</a>
+    </nav>
+    <a class="btn btn-amber mag" href="#agenda"><svg class="ic"><use href="#i-sun"/></svg><span>Ver agenda</span></a>
+  </div>
+</header>
+
+<main>
+<!-- HERO -->
+<section class="hero" id="topo">
+  <div class="hero-media"><img src="img/afrente-azul.webp" alt="O chalé da Vila Aruanna na hora azul, com a luz âmbar acesa por dentro" fetchpriority="high"></div>
+  <div class="hero-shade"></div>
+  <div class="wrap hero-copy">
+    <p class="eyebrow">Montes Claros · Minas Gerais</p>
+    <h1>
+      <span class="ln"><span style="--i:0">Lá no alto,</span></span>
+      <span class="ln"><span style="--i:1">a cidade <em>acende</em></span></span>
+      <span class="ln"><span style="--i:2">para você.</span></span>
+    </h1>
+    <p class="lede">Um chalé de vidro no alto da serra, onde o dia termina em dourado e a noite chega cheia de luzes.</p>
+    <div class="cta-row">
+      <a class="btn btn-amber mag" href="#agenda"><svg class="ic"><use href="#i-sun"/></svg>Escolher datas</a>
+      <a class="btn btn-ghost mag" href="#dia">Ver um dia na Vila <svg class="ic arrow"><use href="#i-arrow"/></svg></a>
+    </div>
+  </div>
+  <div class="wrap hero-meta">
+    <span><i></i>Pôr do sol no deck</span>
+    <span><i></i>Banheira com vista</span>
+    <span><i></i>Luzes da cidade à noite</span>
+    <span><i></i>Silêncio na serra</span>
+  </div>
+</section>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track" id="ticker"></div>
+</div>
+
+<!-- STATEMENT -->
+<section class="statement wrap" id="vila">
+  <p data-words>Você chega no fim da tarde, o céu muda de cor sobre o vale e, quando escurece, <em>Montes Claros vira um tapete de luzes.</em> A casa foi feita para olhar isso sem pressa.</p>
+</section>
+
+<div class="wrap duo">
+  <figure class="rv">
+    <div class="frame fr"><img data-speed=".06" src="img/afrente-nuvens.webp" alt="O chalé sob um céu de chuva, com uma lâmpada acesa em primeiro plano" style="object-position:50% 45%" loading="lazy"></div>
+    <figcaption>A casa abre a frente inteira para o vale. Você fica com o céu na janela.</figcaption>
+  </figure>
+  <figure class="rv">
+    <div class="frame fr"><img data-speed=".06" src="img/cerimonia.webp" alt="Cerimônia ao ar livre no deck, com arco de flores e a serra ao fundo" style="object-position:50% 50%" loading="lazy"></div>
+    <figcaption>No deck, o horizonte vira <strong>cenário para celebrar</strong>.</figcaption>
+  </figure>
+</div>
+
+<!-- DIA NA VILA -->
+<section class="scene" id="dia" data-phase="0">
+  <div class="wrap">
+    <div class="scene-head rv">
+      <p class="eyebrow">Um dia na Vila</p>
+      <h2>O melhor da casa muda a cada <em>hora</em>.</h2>
+      <p>Chegue com a tarde ainda alta e fique para ver a vista mudar quatro vezes.</p>
+    </div>
+    <div class="scene-grid">
+      <div class="stage-col">
+        <div class="rail" id="rail">
+          <button type="button" class="on" data-i="0"><span>Tarde</span><span class="bar"><i></i></span></button>
+          <button type="button" data-i="1"><span>Pôr do sol</span><span class="bar"><i></i></span></button>
+          <button type="button" data-i="2"><span>Hora azul</span><span class="bar"><i></i></span></button>
+          <button type="button" data-i="3"><span>Noite</span><span class="bar"><i></i></span></button>
+        </div>
+        <div class="stage" id="stage">
+          <img class="on" src="img/deck.webp" alt="Deck de madeira com luzes penduradas e vista para a cidade" style="object-position:50% 62%" decoding="async">
+          <img src="img/vista-dia.webp" alt="Canto de vidro com a cidade dourada pelo sol" style="object-position:45% 50%" decoding="async">
+          <img src="img/aquecedor.webp" alt="Aquecedor externo aceso diante do chalé ao anoitecer" style="object-position:70% 40%" decoding="async">
+          <img src="img/vista-noite.webp" alt="Luzes de Montes Claros à noite vistas através do vidro" style="object-position:50% 60%" decoding="async">
+          <div class="stage-tag"><svg class="ic" id="tagIcon"><use href="#i-sun"/></svg><span id="tagText">Tarde</span></div>
+          <div class="cap" id="cap"><h3 id="capT"></h3><p id="capP"></p></div>
+        </div>
+      </div>
+      <div class="steps" id="steps">
+        <article class="step active" data-i="0" data-icon="i-sun" data-label="Tarde">
+          <span class="t">Tarde</span>
+          <h3>O deck é <em>todo seu</em>.</h3>
+          <p>Pés descalços na madeira, luzes penduradas e o vale inteiro à frente. Lá embaixo, a cidade parece pequena.</p>
+        </article>
+        <article class="step" data-i="1" data-icon="i-dusk" data-label="Pôr do sol">
+          <span class="t">Pôr do sol</span>
+          <h3>O vidro <em>pega fogo</em>.</h3>
+          <p>A cidade inteira fica dourada por alguns minutos. É a hora de parar de falar e só olhar.</p>
+        </article>
+        <article class="step" data-i="2" data-icon="i-flame" data-label="Hora azul">
+          <span class="t">Hora azul</span>
+          <h3>As luzes <em>acendem</em>.</h3>
+          <p>A casa acende por dentro, as lâmpadas do deck ligam e o calor do aquecedor segura a conversa até tarde.</p>
+        </article>
+        <article class="step" data-i="3" data-icon="i-moon" data-label="Noite">
+          <span class="t">Noite</span>
+          <h3>Montes Claros <em>brilha</em>.</h3>
+          <p>Uma taça de vinho, silêncio de serra e a cidade inteira iluminada na janela.</p>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- A CASA -->
+<section class="wrap pair" id="casal">
+  <div class="frame fr"><img data-speed=".06" src="img/casal-varanda.webp" alt="Casal sentado na varanda do chalé, abraçado, com a luz do fim de tarde" style="object-position:50% 70%" loading="lazy"></div>
+  <div class="rv">
+    <p class="eyebrow">A casa</p>
+    <h2>Feita para quem quer <em>desacelerar</em> a dois.</h2>
+    <p class="lead">Aqui o programa é ficar. Olhar o céu, entrar na banheira de frente para o vale, jantar no deck e deixar a noite passar devagar.</p>
+    <div class="feats">
+      <div class="feat"><svg class="ic"><use href="#i-bath"/></svg><div><b>Banheira com vista</b><span>De frente para o vale</span></div></div>
+      <div class="feat"><svg class="ic"><use href="#i-glass"/></svg><div><b>Casa de vidro</b><span>O céu como companhia</span></div></div>
+      <div class="feat"><svg class="ic"><use href="#i-deck"/></svg><div><b>Deck para ficar</b><span>Luzes acesas e vista aberta</span></div></div>
+      <div class="feat"><svg class="ic"><use href="#i-flame"/></svg><div><b>Calor lá fora</b><span>Para ficar até tarde</span></div></div>
+      <div class="feat"><svg class="ic"><use href="#i-star"/></svg><div><b>Pôr do sol e luzes</b><span>Duas vistas no mesmo dia</span></div></div>
+      <div class="feat"><svg class="ic"><use href="#i-quiet"/></svg><div><b>Silêncio</b><span>Mata e serra ao redor</span></div></div>
+    </div>
+    <a class="btn btn-amber mag" href="#agenda"><svg class="ic"><use href="#i-sun"/></svg>Escolher datas</a>
+  </div>
+</section>
+
+<!-- VÍDEO -->
+<section class="reel" id="video">
+  <div class="wrap reel-in">
+    <div class="rv">
+      <p class="eyebrow">Por dentro</p>
+      <h2>Veja como é <em>estar lá</em>.</h2>
+      <p>Banho de dia olhando o vale, vinho à noite com a cidade brilhando ao fundo.</p>
+      <p class="credit">Vídeo: <a href="https://www.instagram.com/italovianav/" target="_blank" rel="noopener">@italovianav</a></p>
+    </div>
+    <div class="phone">
+      <div class="phone-screen">
+        <span class="island"></span>
+        <video id="reelVideo" src="reel.mp4" poster="img/reel-poster.webp" muted loop playsinline preload="metadata"></video>
+        <button class="snd" id="snd" aria-label="Ligar som"><svg class="ic"><use href="#i-mute"/></svg></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALERIA -->
+<section class="wrap gallery" id="fotos">
+  <div class="g-head rv">
+    <div>
+      <p class="eyebrow">Fotos reais</p>
+      <h2>O lugar, <em>de perto</em>.</h2>
+    </div>
+    <a class="ig" href="https://www.instagram.com/vila.aruanna/" target="_blank" rel="noopener"><svg class="ic"><use href="#i-ig"/></svg>Mais no @vila.aruanna<svg class="ic"><use href="#i-arrow"/></svg></a>
+  </div>
+  <div class="g-grid" id="grid"></div>
+</section>
+
+<!-- AVALIAÇÕES -->
+<section class="wrap reviews" id="avaliacoes">
+  <div class="rev-head rv">
+    <div>
+      <p class="eyebrow">Avaliações</p>
+      <h2>O que os hóspedes <em>contam</em>.</h2>
+      <p class="lead">Só entram aqui comentários de quem já se hospedou.</p>
+    </div>
+    <div class="rev-side">
+      <div class="score" id="score" hidden></div>
+      <div class="cal-nav" id="revNav" hidden>
+        <button type="button" class="prev" id="revPrev" aria-label="Avaliações anteriores"><svg class="ic"><use href="#i-arrow"/></svg></button>
+        <button type="button" class="next" id="revNext" aria-label="Próximas avaliações"><svg class="ic"><use href="#i-arrow"/></svg></button>
+      </div>
+    </div>
+  </div>
+  <div class="rev-track rv" id="revList" tabindex="0" aria-label="Avaliações dos hóspedes"></div>
+  <div class="rev-dots" id="revDots"></div>
+</section>
+
+<!-- AGENDA -->
+<section class="wrap agenda" id="agenda">
+  <div class="ag-head rv">
+    <p class="eyebrow">Agenda</p>
+    <h2>Escolha o seu <em>fim de tarde</em>.</h2>
+    <p>Escolha os dias, envie o pedido pelo WhatsApp e a equipe confirma tudo com você.</p>
+  </div>
+  <div class="ag-card rv">
+    <div class="cal">
+      <div class="cal-top">
+        <div class="cal-legend"><span><i class="o"></i>Livre</span><span><i class="r"></i>Reservado</span><span><i></i>Sua escolha</span></div>
+        <div class="cal-nav">
+          <button type="button" class="prev" id="calPrev" aria-label="Mês anterior"><svg class="ic"><use href="#i-arrow"/></svg></button>
+          <button type="button" class="next" id="calNext" aria-label="Próximo mês"><svg class="ic"><use href="#i-arrow"/></svg></button>
+        </div>
+      </div>
+      <div class="months" id="months"></div>
+    </div>
+    <div class="panel" aria-live="polite">
+      <h3>Sua estadia</h3>
+      <div class="dates">
+        <div><small>Entrada</small><b class="ph" id="agIn">Escolha o dia</b></div>
+        <div><small>Saída</small><b class="ph" id="agOut">Escolha o dia</b></div>
+      </div>
+      <div class="nights" id="agNights"></div>
+      <div class="field"><small>Pessoas</small>
+        <div class="step-g"><button type="button" id="gMinus" aria-label="Menos uma pessoa">−</button><output id="gN">2</output><button type="button" id="gPlus" aria-label="Mais uma pessoa">+</button></div>
+      </div>
+      <a class="btn btn-amber" id="agWa" href="#agenda"><svg class="ic"><use href="#i-wa"/></svg><span id="agWaTxt">Pedir estas datas</span></a>
+      <button type="button" class="clear" id="agClear">Limpar datas</button>
+      <p class="note">Seu pedido abre o WhatsApp já com as datas escritas. A reserva vale depois que a equipe confirmar.</p>
+    </div>
+  </div>
+</section>
+
+<!-- LOCAL -->
+<section class="wrap where" id="local">
+  <div class="where-card rv">
+    <div class="where-txt">
+      <p class="eyebrow">Como chegar</p>
+      <h2>Nas alturas de <em>Montes Claros</em>.</h2>
+      <p>A casa fica na serra, acima de Montes Claros. De lá, a cidade se abre inteira até o horizonte.</p>
+      <div class="coords"><svg class="ic"><use href="#i-pin"/></svg>16°44′48″ S · 43°54′27″ O</div>
+      <div><a class="btn btn-ghost mag" href="https://www.google.com/maps/place/Vila+Aruanna/@-16.728064,-43.876352,14z/data=!4m6!3m5!1s0xab53ce797790c7:0x7f0e350b1dcd4968!8m2!3d-16.746661!4d-43.9076263!16s%2Fg%2F11vd6wcbh2" target="_blank" rel="noopener"><svg class="ic"><use href="#i-pin"/></svg>Abrir no Google Maps</a></div>
+    </div>
+    <div class="where-img">
+      <img src="img/vista-noite.webp" alt="Vista noturna de Montes Claros a partir da Vila Aruanna" loading="lazy">
+      <span class="pin"></span>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="wrap faq" id="faq">
+  <h2 class="rv">Antes de <em>reservar</em>.</h2>
+  <div class="q" data-open="false"><button aria-expanded="false"><span>Como faço a reserva?</span><i class="plus"></i></button><div class="ans"><div><p>Escolha as datas na agenda e envie o pedido pelo WhatsApp. A equipe responde confirmando a disponibilidade e combina o resto com você.</p></div></div></div>
+  <div class="q" data-open="false"><button aria-expanded="false"><span>Qual a melhor hora para chegar?</span><i class="plus"></i></button><div class="ans"><div><p>No fim da tarde. Dá tempo de ver o pôr do sol no deck, a hora azul e as luzes da cidade acendendo, tudo no mesmo dia.</p></div></div></div>
+  <div class="q" data-open="false"><button aria-expanded="false"><span>Quantas pessoas o chalé comporta?</span><i class="plus"></i></button><div class="ans"><div><p>Capacidade e o que está incluso na diária são confirmados direto no WhatsApp, junto com as datas.</p></div></div></div>
+  <div class="q" data-open="false"><button aria-expanded="false"><span>Como funcionam entrada e saída?</span><i class="plus"></i></button><div class="ans"><div><p>Os horários são combinados na reserva, e as instruções de chegada vão pelo WhatsApp antes da viagem.</p></div></div></div>
+  <div class="q" data-open="false"><button aria-expanded="false"><span>Onde vejo mais fotos?</span><i class="plus"></i></button><div class="ans"><div><p>No Instagram <a href="https://www.instagram.com/vila.aruanna/" target="_blank" rel="noopener" style="color:var(--amber-2)">@vila.aruanna</a>, com os registros mais recentes da casa.</p></div></div></div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="final" id="final">
+  <img data-speed=".1" src="img/casal-silhueta.webp" alt="Silhueta de um casal se beijando no deck ao entardecer" loading="lazy">
+  <div class="wrap">
+    <h2 class="rv">Reserve o seu <em>fim de tarde</em>.</h2>
+    <p class="rv">Consulte datas direto com a Vila Aruanna e escolha o dia em que a cidade vai acender para você.</p>
+    <a class="btn btn-amber mag" data-wa="Olá! Gostaria de reservar uma estadia na Vila Aruanna." href="#final"><svg class="ic"><use href="#i-wa"/></svg>Falar no WhatsApp</a>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a href="#topo" class="brand"><svg viewBox="0 0 32 32" fill="none" stroke="#ffc76b" stroke-width="1.6" stroke-linejoin="round"><use href="#i-aframe"/></svg><span><b>Vila Aruanna</b><small>Montes Claros · MG</small></span></a>
+    <nav>
+      <a href="https://www.instagram.com/vila.aruanna/" target="_blank" rel="noopener"><svg class="ic"><use href="#i-ig"/></svg>Instagram</a>
+      <a href="https://www.google.com/maps/place/Vila+Aruanna/@-16.728064,-43.876352,14z/data=!4m6!3m5!1s0xab53ce797790c7:0x7f0e350b1dcd4968!8m2!3d-16.746661!4d-43.9076263!16s%2Fg%2F11vd6wcbh2" target="_blank" rel="noopener"><svg class="ic"><use href="#i-pin"/></svg>Google Maps</a>
+    </nav>
+    <span>© 2026 Vila Aruanna</span>
+  </div>
+</footer>
+
+<a class="fab" id="fab" data-wa="Olá! Vim pelo site da Vila Aruanna e gostaria de informações." href="#final" aria-label="Falar no WhatsApp"><svg class="ic"><use href="#i-wa"/></svg></a>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Galeria de fotos">
+  <button class="x" id="lbX" aria-label="Fechar"><svg class="ic"><use href="#i-x"/></svg></button>
+  <button class="p" id="lbP" aria-label="Foto anterior"><svg class="ic"><use href="#i-arrow"/></svg></button>
+  <button class="n" id="lbN" aria-label="Próxima foto"><svg class="ic"><use href="#i-arrow"/></svg></button>
+  <figure><img id="lbImg" alt=""><figcaption id="lbCap"></figcaption></figure>
+</div>
+
+<script>
+(function(){
+  /* ===== Configuração ===== */
+  /* Número do WhatsApp (DDI + DDD + número, só dígitos). */
+  var WA_NUMBER = "5538999604041";
+  /* Datas indisponíveis, no formato "AAAA-MM-DD". Cada dia listado fica riscado no calendário. */
+  var BOOKED = [];
+  /* Avaliações reais de hóspedes. Formato: {nome:"Nome", nota:5, texto:"Comentário", data:"out 2026", origem:"Google"} */
+  var REVIEWS = [];
+  /* Modo demonstração: true mostra datas ocupadas e avaliações de EXEMPLO (marcadas na página). Troque para false ao publicar de verdade. */
+  var DEMO = true;
+  if(DEMO && !REVIEWS.length){
+    REVIEWS = [
+      {nome:"Camila R.", nota:5, texto:"Chegamos no fim da tarde e ficamos no deck até a cidade acender toda. Não queríamos ir embora.", data:"Exemplo"},
+      {nome:"Rafael M.", nota:5, texto:"A banheira olhando para o vale foi o melhor momento da viagem. Silêncio total.", data:"Exemplo"},
+      {nome:"Juliana e Pedro", nota:5, texto:"Comemoramos nosso aniversário de namoro aqui. A vista à noite parece cenário de filme.", data:"Exemplo"},
+      {nome:"Marcos T.", nota:4, texto:"Lugar lindo e muito tranquilo. Vale chegar cedo para pegar o pôr do sol no deck.", data:"Exemplo"},
+      {nome:"Fernanda L.", nota:5, texto:"Dormimos com a cidade acesa na janela e acordamos com o céu azul. Dois dias que pareceram uma semana.", data:"Exemplo"},
+      {nome:"Lucas e Ana", nota:5, texto:"Pedimos um vinho no deck e passamos horas sem olhar o celular. Voltaríamos amanhã.", data:"Exemplo"}
+    ];
+  }
+  var GOOGLE_URL = "https://www.google.com/maps/place/Vila+Aruanna/@-16.728064,-43.876352,14z/data=!4m6!3m5!1s0xab53ce797790c7:0x7f0e350b1dcd4968!8m2!3d-16.746661!4d-43.9076263!16s%2Fg%2F11vd6wcbh2";
+
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var vh = window.innerHeight;
+  var $ = function(s,r){return (r||document).querySelector(s)};
+  var $$ = function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+  var clamp = function(v,a,b){return Math.min(b,Math.max(a,v))};
+  var pad = function(n){return String(n).padStart(2,"0")};
+  var waUrl = function(t){return "https://wa.me/"+WA_NUMBER+"?text="+encodeURIComponent(t)};
+
+  $$("[data-wa]").forEach(function(a){a.href=waUrl(a.getAttribute("data-wa"));a.target="_blank";a.rel="noopener"});
+
+  /* Ticker */
+  var phrases = ["Pôr do sol no deck","Banheira com vista","Luzes da cidade","Céu o dia inteiro","Silêncio na serra","Vinho no fim da tarde","Hora azul"];
+  var row = phrases.map(function(t){return "<span>"+t+"</span>"}).join("");
+  $("#ticker").innerHTML = row+row+row+row;
+
+  /* Galeria (12 fotos, todas no mesmo formato) */
+  var photos = [
+    ["deck","O deck no fim da tarde","50% 62%"],
+    ["casal-varanda","A dois, na varanda","50% 70%"],
+    ["vista-dia","O pôr do sol pelo vidro","45% 50%"],
+    ["afrente-azul","O chalé na hora azul","60% 40%"],
+    ["banheira","Banheira de frente para o vale","50% 62%"],
+    ["casal-vinho","Vinho ao ar livre, a dois","50% 40%"],
+    ["interior","Por dentro, com a luz da tarde","50% 50%"],
+    ["casal-silhueta","Entardecer a dois","86% 50%"],
+    ["vista-noite","A cidade acesa, da janela","50% 60%"],
+    ["cortina-noite","A cidade acesa entre as cortinas","50% 40%"],
+    ["mesa-noite","Vinho e a cidade ao fundo","50% 50%"],
+    ["banheiro","Pia de pedra no banheiro","50% 55%"]
+  ];
+  var src = function(k){return k==="banheira" ? "img/reel-poster.webp" : "img/"+k+".webp"};
+  var grid = $("#grid");
+  photos.forEach(function(p,i){
+    var f = document.createElement("button");
+    f.className = "g-item rv"; f.type = "button";
+    f.setAttribute("aria-label","Ampliar: "+p[1]);
+    f.innerHTML = '<img src="'+src(p[0])+'" alt="'+p[1]+'" style="object-position:'+p[2]+'" loading="lazy"><figcaption>'+p[1]+'</figcaption>';
+    f.addEventListener("click",function(){openLb(i)});
+    grid.appendChild(f);
+  });
+
+  /* Lightbox */
+  var lb=$("#lb"), lbImg=$("#lbImg"), lbCap=$("#lbCap"), cur=0, lastFocus=null;
+  function show(i){
+    cur=(i+photos.length)%photos.length;
+    lbImg.classList.add("swap");
+    setTimeout(function(){
+      lbImg.onload=function(){lbImg.classList.remove("swap")};
+      lbImg.src=src(photos[cur][0]); lbImg.alt=photos[cur][1];
+      lbCap.innerHTML="<b>"+pad(cur+1)+" / "+pad(photos.length)+"</b>"+photos[cur][1];
+      if(lbImg.complete) lbImg.classList.remove("swap");
+    },160);
+  }
+  function openLb(i){lastFocus=document.activeElement;lb.classList.add("open");document.body.style.overflow="hidden";show(i);$("#lbX").focus()}
+  function closeLb(){lb.classList.remove("open");document.body.style.overflow="";if(lastFocus)lastFocus.focus()}
+  $("#lbX").addEventListener("click",closeLb);
+  $("#lbP").addEventListener("click",function(){show(cur-1)});
+  $("#lbN").addEventListener("click",function(){show(cur+1)});
+  lb.addEventListener("click",function(e){if(e.target===lb||e.target.tagName==="FIGURE")closeLb()});
+  document.addEventListener("keydown",function(e){
+    if(!lb.classList.contains("open"))return;
+    if(e.key==="Escape")closeLb();
+    if(e.key==="ArrowRight")show(cur+1);
+    if(e.key==="ArrowLeft")show(cur-1);
+  });
+  var tx=0;
+  lb.addEventListener("touchstart",function(e){tx=e.changedTouches[0].clientX},{passive:true});
+  lb.addEventListener("touchend",function(e){var d=e.changedTouches[0].clientX-tx;if(Math.abs(d)>50)show(cur+(d<0?1:-1))},{passive:true});
+
+  /* Avaliações */
+  var starsHtml = function(n,filled){
+    var s='<span class="stars" role="img" aria-label="'+n+' de 5 estrelas">';
+    for(var i=1;i<=5;i++) s+='<svg class="ic'+(filled&&i<=n?' star-f':'')+'"><use href="#i-starr"/></svg>';
+    return s+'</span>';
+  };
+  var esc = function(t){return String(t).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})};
+  (function(){
+    var list=$("#revList"), score=$("#score"), nav=$("#revNav"), dots=$("#revDots");
+    if(!REVIEWS.length){
+      list.innerHTML='<div class="rev-empty">'+starsHtml(5,false)+
+        '<h3>As primeiras avaliações chegam em breve.</h3>'+
+        '<p>Já se hospedou na Vila Aruanna? Conte como foi no Google. Seu comentário ajuda quem está escolhendo a próxima viagem.</p>'+
+        '<div class="row"><a class="btn btn-amber" href="'+GOOGLE_URL+'" target="_blank" rel="noopener"><svg class="ic"><use href="#i-pin"/></svg>Avaliar no Google</a>'+
+        '<a class="btn btn-ghost" href="https://www.instagram.com/vila.aruanna/" target="_blank" rel="noopener"><svg class="ic"><use href="#i-ig"/></svg>Ver no Instagram</a></div></div>';
+      return;
+    }
+    var avg=REVIEWS.reduce(function(a,r){return a+r.nota},0)/REVIEWS.length;
+    score.hidden=false;
+    score.innerHTML='<b>'+avg.toFixed(1).replace(".",",")+'</b><div>'+starsHtml(Math.round(avg),true)+'<small>'+REVIEWS.length+' avaliaç'+(REVIEWS.length>1?'ões':'ão')+'</small></div>';
+    list.innerHTML=REVIEWS.map(function(r){
+      return '<article class="rev">'+starsHtml(r.nota,true)+'<p>“'+esc(r.texto)+'”</p><div class="rev-meta"><span>'+esc(r.nome)+'</span><span>'+esc(r.data||"")+(r.origem?' · '+esc(r.origem):'')+'</span></div></article>';
+    }).join("");
+    var prev=$("#revPrev"), next=$("#revNext"), cards=$$(".rev",list), pages=1;
+    var gap=function(){return parseFloat(getComputedStyle(list).columnGap)||16};
+    var pageW=function(){return list.clientWidth+gap()};
+    function layout(){
+      var per=Math.max(1,Math.round((list.clientWidth+gap())/(cards[0].offsetWidth+gap())));
+      pages=Math.ceil(cards.length/per);
+      nav.hidden=pages<=1;
+      dots.innerHTML=pages>1?Array.apply(null,Array(pages)).map(function(_,i){return '<button type="button" aria-label="Página '+(i+1)+'"></button>'}).join(""):"";
+      $$("button",dots).forEach(function(b,i){b.addEventListener("click",function(){list.scrollTo({left:i*pageW(),behavior:reduce?"auto":"smooth"})})});
+      upd();
+    }
+    function upd(){
+      var i=clamp(Math.round(list.scrollLeft/pageW()),0,pages-1);
+      var atEnd=list.scrollLeft+list.clientWidth>=list.scrollWidth-4;
+      if(atEnd)i=pages-1;
+      prev.disabled=list.scrollLeft<=4; next.disabled=atEnd;
+      $$("button",dots).forEach(function(b,k){b.classList.toggle("on",k===i)});
+    }
+    prev.addEventListener("click",function(){list.scrollBy({left:-pageW(),behavior:reduce?"auto":"smooth"})});
+    next.addEventListener("click",function(){list.scrollBy({left:pageW(),behavior:reduce?"auto":"smooth"})});
+    list.addEventListener("scroll",function(){requestAnimationFrame(upd)},{passive:true});
+    window.addEventListener("resize",layout);
+    layout();
+  })();
+
+  /* Agenda */
+  var MS=["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
+  var MSS=["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"];
+  var WD=["domingo","segunda","terça","quarta","quinta","sexta","sábado"];
+  var WDS=["dom","seg","ter","qua","qui","sex","sáb"];
+  var booked={};
+  var iso=function(d){return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())};
+  var parse=function(s){var p=s.split("-");return new Date(+p[0],+p[1]-1,+p[2])};
+  var today=new Date(); today.setHours(0,0,0,0);
+  var todayISO=iso(today), maxAhead=18;
+  if(DEMO && !BOOKED.length){
+    for(var w=0;w<14;w++){
+      var base=new Date(today); base.setDate(base.getDate()+((5-today.getDay()+7)%7)+w*7);
+      var pats=[[-1,0,1,2],[0,1],[0,1,2],[-2,-1,0,1],[1,2],[0,1,2,3]]; var offs=pats[w%6];
+      offs.forEach(function(o){var d=new Date(base);d.setDate(d.getDate()+o);BOOKED.push(iso(d))});
+    }
+  }
+  BOOKED.forEach(function(d){booked[d]=1});
+  if(DEMO){
+    var tag=function(t){return '<span class="demo-tag">'+t+'</span>'};
+    $(".reviews .lead").insertAdjacentHTML("afterend",tag("Demonstração · avaliações de exemplo"));
+    $(".ag-head p").insertAdjacentHTML("afterend",tag("Demonstração · datas ocupadas de exemplo"));
+  }
+  var view=new Date(today.getFullYear(),today.getMonth(),1);
+  var start=null,end=null,hov=null,guests=2;
+  var monthsEl=$("#months"), cells=[];
+  var nMonths=function(){return window.innerWidth>=992?2:1};
+
+  function build(){
+    var n=nMonths(), html="";
+    for(var k=0;k<n;k++){
+      var m=new Date(view.getFullYear(),view.getMonth()+k,1);
+      var first=m.getDay(), days=new Date(m.getFullYear(),m.getMonth()+1,0).getDate();
+      var cnt=0; for(var q=1;q<=days;q++){var qs=iso(new Date(m.getFullYear(),m.getMonth(),q)); if(booked[qs]&&qs>=todayISO)cnt++}
+      html+='<div class="month"><h4>'+MS[m.getMonth()]+' '+m.getFullYear()+(cnt?'<small>'+cnt+(cnt>1?' reservadas':' reservada')+'</small>':'')+'</h4><div class="dow">'+WDS.map(function(w){return "<span>"+w.charAt(0)+"</span>"}).join("")+'</div><div class="days">';
+      for(var e=0;e<first;e++) html+='<span class="d empty"></span>';
+      for(var d=1;d<=days;d++){
+        var dt=new Date(m.getFullYear(),m.getMonth(),d), s=iso(dt);
+        var off=s<todayISO, bk=!!booked[s];
+        var label=WD[dt.getDay()]+", "+d+" de "+MS[m.getMonth()]+(bk?" (reservado)":"");
+        html+='<button type="button" class="d'+(off||bk?" off":"")+(bk?" booked":"")+(s===todayISO?" today":"")+'" data-d="'+s+'" aria-label="'+label+'"'+(off||bk?" disabled":"")+'><span class="n">'+d+'</span></button>';
+      }
+      html+='</div></div>';
+    }
+    monthsEl.innerHTML=html;
+    cells=$$(".d[data-d]",monthsEl);
+    nav(); paint();
+  }
+  function nav(){
+    $("#calPrev").disabled = view.getFullYear()===today.getFullYear() && view.getMonth()===today.getMonth();
+    var last=new Date(today.getFullYear(),today.getMonth()+maxAhead,1);
+    var shownLast=new Date(view.getFullYear(),view.getMonth()+nMonths()-1,1);
+    $("#calNext").disabled = shownLast>=last;
+  }
+  function paint(){
+    var lo=start, hi=end||(start&&hov&&hov>start?hov:null);
+    cells.forEach(function(c){
+      var s=c.dataset.d, cl=c.classList;
+      cl.toggle("start",s===start);
+      cl.toggle("end",!!end&&s===end);
+      cl.toggle("has-range",s===start&&!!hi);
+      cl.toggle("in",!!lo&&!!hi&&s>lo&&s<hi);
+      c.setAttribute("aria-pressed",(s===start||s===end)?"true":"false");
+    });
+  }
+  function blockedBetween(a,b){
+    var d=parse(a); d.setDate(d.getDate()+1);
+    while(iso(d)<b){if(booked[iso(d)])return true;d.setDate(d.getDate()+1)}
+    return false;
+  }
+  monthsEl.addEventListener("click",function(e){
+    var c=e.target.closest(".d[data-d]"); if(!c||c.disabled)return;
+    var s=c.dataset.d;
+    if(!start||end){start=s;end=null}
+    else if(s<=start){start=s}
+    else if(blockedBetween(start,s)){start=s}
+    else end=s;
+    hov=null; paint(); summary();
+  });
+  monthsEl.addEventListener("mouseover",function(e){
+    var c=e.target.closest(".d[data-d]"); if(!c||c.disabled||!start||end)return;
+    hov=c.dataset.d; paint();
+  });
+  monthsEl.addEventListener("mouseleave",function(){hov=null;paint()});
+  function shift(delta){
+    monthsEl.classList.add("swap");
+    setTimeout(function(){
+      view=new Date(view.getFullYear(),view.getMonth()+delta,1);
+      build(); monthsEl.classList.remove("swap");
+    },260);
+  }
+  $("#calPrev").addEventListener("click",function(){shift(-1)});
+  $("#calNext").addEventListener("click",function(){shift(1)});
+
+  var fmtS=function(s){var d=parse(s);return WDS[d.getDay()]+", "+d.getDate()+" "+MSS[d.getMonth()]};
+  var fmtL=function(s){var d=parse(s);return WD[d.getDay()]+", "+d.getDate()+" de "+MS[d.getMonth()]};
+  function summary(){
+    var a=$("#agIn"), b=$("#agOut"), n=$("#agNights"), wa=$("#agWa"), wt=$("#agWaTxt");
+    a.textContent=start?fmtS(start):"Escolha o dia"; a.classList.toggle("ph",!start);
+    b.textContent=end?fmtS(end):"Escolha o dia"; b.classList.toggle("ph",!end);
+    $("#agClear").classList.toggle("show",!!start);
+    var msg;
+    if(start&&end){
+      var nn=Math.round((parse(end)-parse(start))/864e5);
+      n.textContent=nn+(nn>1?" noites":" noite");
+      msg="Olá! Gostaria de reservar a Vila Aruanna de "+fmtL(start)+" a "+fmtL(end)+" ("+nn+(nn>1?" noites":" noite")+") para "+guests+(guests>1?" pessoas":" pessoa")+". Essas datas estão disponíveis?";
+      wt.textContent="Pedir estas datas";
+    }else if(start){
+      n.textContent="Agora escolha a saída";
+      msg="Olá! Gostaria de reservar a Vila Aruanna a partir de "+fmtL(start)+" para "+guests+(guests>1?" pessoas":" pessoa")+". Quais datas de saída estão disponíveis?";
+      wt.textContent="Consultar a partir deste dia";
+    }else{
+      n.textContent="";
+      msg="Olá! Gostaria de consultar datas na Vila Aruanna para "+guests+(guests>1?" pessoas":" pessoa")+".";
+      wt.textContent="Consultar datas";
+    }
+    wa.href=waUrl(msg); wa.target="_blank"; wa.rel="noopener";
+  }
+  $("#agClear").addEventListener("click",function(){start=end=hov=null;paint();summary()});
+  function setG(v){guests=clamp(v,1,8);$("#gN").textContent=guests;$("#gMinus").disabled=guests<=1;$("#gPlus").disabled=guests>=8;summary()}
+  $("#gMinus").addEventListener("click",function(){setG(guests-1)});
+  $("#gPlus").addEventListener("click",function(){setG(guests+1)});
+  var lastN=nMonths();
+  window.addEventListener("resize",function(){if(nMonths()!==lastN){lastN=nMonths();build()}});
+  build(); setG(2);
+
+  /* Frase que acende com a rolagem */
+  var st=$("[data-words]"), words=[];
+  (function(){
+    var frag=document.createDocumentFragment();
+    function wrap(txt,parent){
+      txt.split(/(\s+)/).forEach(function(t){
+        if(!t)return;
+        if(/^\s+$/.test(t)){parent.appendChild(document.createTextNode(" "));return}
+        var s=document.createElement("span");s.className="w";s.textContent=t;parent.appendChild(s);words.push(s);
+      });
+    }
+    Array.prototype.slice.call(st.childNodes).forEach(function(n){
+      if(n.nodeType===3){wrap(n.textContent,frag)}
+      else{var c=n.cloneNode(false);wrap(n.textContent,c);frag.appendChild(c)}
+    });
+    st.textContent="";st.appendChild(frag);
+  })();
+  function updWords(){
+    if(reduce){words.forEach(function(w){w.classList.add("on")});return}
+    var r=st.getBoundingClientRect();
+    var p=clamp((vh*0.82-r.top)/(r.height+vh*0.16),0,1);
+    var n=Math.round(p*words.length*1.08);
+    words.forEach(function(w,i){w.classList.toggle("on",i<n)});
+  }
+
+  /* Parallax suave nas molduras */
+  var par=$$("[data-speed]");
+  function updPar(){
+    if(reduce)return;
+    par.forEach(function(el){
+      var host=el.parentElement,r=host.getBoundingClientRect();
+      if(r.bottom<-200||r.top>vh+200)return;
+      var d=(r.top+r.height/2-vh/2)*parseFloat(el.dataset.speed);
+      el.style.transform="translate3d(0,"+(-d).toFixed(1)+"px,0) scale(1.12)";
+    });
+  }
+
+  /* Revelações: aparecem uma vez e ficam */
+  var pending=$$(".rv,.fr");
+  function reveal(){
+    if(!pending.length)return;
+    pending=pending.filter(function(el){
+      if(reduce||el.getBoundingClientRect().top<vh*0.94){el.classList.add("in");return false}
+      return true;
+    });
+  }
+
+  /* Cena "Um dia na Vila": etapa ativa vem da posição, então funciona subindo e descendo */
+  var scene=$("#dia"), steps=$$(".step"), imgs=$$("#stage>img"), rail=$$("#rail button");
+  var tagText=$("#tagText"), tagUse=$("#tagIcon use"), capT=$("#capT"), capP=$("#capP");
+  var curStep=-1;
+  function setStep(i){
+    if(i===curStep)return; curStep=i;
+    imgs.forEach(function(im,k){im.classList.toggle("on",k===i)});
+    steps.forEach(function(s,k){s.classList.toggle("active",k===i)});
+    rail.forEach(function(b,k){b.classList.toggle("on",k===i)});
+    scene.dataset.phase=i;
+    tagText.textContent=steps[i].dataset.label;
+    tagUse.setAttribute("href","#"+steps[i].dataset.icon);
+    capT.innerHTML=$("h3",steps[i]).innerHTML; capP.textContent=$("p",steps[i]).textContent;
+  }
+  function updScene(){
+    var sr=scene.getBoundingClientRect();
+    if(sr.bottom<-100||sr.top>vh+100)return;
+    var line=vh*0.5, act=0;
+    steps.forEach(function(s,k){
+      var r=s.getBoundingClientRect();
+      if(r.top<=line)act=k;
+      var f=clamp((line-r.top)/r.height,0,1);
+      $(".bar i",rail[k]).style.width=(f*100).toFixed(1)+"%";
+    });
+    setStep(act);
+  }
+  rail.forEach(function(b){
+    b.addEventListener("click",function(){
+      var s=steps[+b.dataset.i], r=s.getBoundingClientRect();
+      window.scrollTo({top:window.scrollY+r.top+r.height*0.5-vh*0.5+2,behavior:reduce?"auto":"smooth"});
+    });
+  });
+  setStep(0);
+
+  /* Nav, progresso, botão flutuante */
+  var nav_=$("#nav"), prog=$("#progress"), fab=$("#fab"), lastY=0;
+  function onScroll(){
+    var y=window.scrollY, h=document.documentElement.scrollHeight-vh;
+    prog.style.transform="scaleX("+(h>0?clamp(y/h,0,1):0)+")";
+    nav_.classList.toggle("scrolled",y>40);
+    nav_.classList.toggle("hide",y>520&&y>lastY+4);
+    if(y<lastY-4||y<520)nav_.classList.remove("hide");
+    lastY=y;
+    fab.classList.toggle("show",y>vh*0.7);
+    updWords();updPar();updScene();reveal();
+  }
+  var ticking=false;
+  window.addEventListener("scroll",function(){if(!ticking){ticking=true;requestAnimationFrame(function(){onScroll();ticking=false})}},{passive:true});
+  window.addEventListener("resize",function(){vh=window.innerHeight;onScroll()});
+  window.addEventListener("load",onScroll);
+  onScroll();
+
+  /* FAQ */
+  $$(".q button").forEach(function(b){
+    b.addEventListener("click",function(){
+      var q=b.parentElement,open=q.dataset.open==="true";
+      $$(".q").forEach(function(o){o.dataset.open="false";$("button",o).setAttribute("aria-expanded","false")});
+      if(!open){q.dataset.open="true";b.setAttribute("aria-expanded","true")}
+    });
+  });
+
+  /* Vídeo */
+  var v=$("#reelVideo"), snd=$("#snd");
+  if("IntersectionObserver" in window){
+    new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){var p=v.play();if(p&&p.catch)p.catch(function(){})}else v.pause();
+      });
+    },{threshold:.35}).observe(v);
+  }
+  snd.addEventListener("click",function(){
+    v.muted=!v.muted;
+    snd.setAttribute("aria-label",v.muted?"Ligar som":"Desligar som");
+    $("use",snd).setAttribute("href",v.muted?"#i-mute":"#i-sound");
+    if(!v.muted){var p=v.play();if(p&&p.catch)p.catch(function(){})}
+  });
+
+  /* Botões magnéticos */
+  if(!reduce&&window.matchMedia("(pointer:fine)").matches){
+    $$(".mag").forEach(function(b){
+      b.addEventListener("pointermove",function(e){
+        var r=b.getBoundingClientRect();
+        var x=(e.clientX-r.left-r.width/2)*.18,y=(e.clientY-r.top-r.height/2)*.28;
+        b.style.transform="translate("+x.toFixed(1)+"px,"+y.toFixed(1)+"px)";
+      });
+      b.addEventListener("pointerleave",function(){b.style.transform=""});
+    });
+  }
+})();
+</script>
+</body></html>
