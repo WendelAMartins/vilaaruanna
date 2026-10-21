@@ -75,6 +75,13 @@ p{margin:0;text-wrap:pretty}
 .links a:hover{color:var(--fg)}
 .links a:hover::after{transform:scaleX(1)}
 .nav .btn{padding:.7rem 1.2rem;font-size:.85rem}
+.menu-btn{display:none;width:2.65rem;height:2.65rem;border-radius:50%;border:1px solid var(--line);background:rgba(238,240,246,.08);color:var(--fg);align-items:center;justify-content:center;cursor:pointer;transition:background .3s,border-color .3s,transform .3s var(--ease);padding:0}
+.menu-btn:hover,.menu-btn:focus-visible{background:rgba(238,240,246,.15);border-color:rgba(255,255,255,.3)}
+.menu-btn .ic{width:1.3rem;height:1.3rem}
+.menu-btn .ic-close{display:none}
+.nav.menu-open .menu-btn .ic-menu{display:none}
+.nav.menu-open .menu-btn .ic-close{display:block}
+.mobile-drawer{display:none}
 
 /* ---------- hero ---------- */
 .hero{position:relative;min-height:min(94svh,60rem);display:flex;flex-direction:column;justify-content:flex-end;padding-top:7rem;padding-bottom:2.2rem;overflow:hidden;isolation:isolate}
@@ -357,6 +364,15 @@ footer nav .ic{width:1.05rem;height:1.05rem}
 @media (max-width:62rem){
   .rev{flex-basis:calc((100% - 1rem)/2)}
   .links{display:none}
+  .nav-cta{display:none}
+  .menu-btn{display:flex}
+  .mobile-drawer{display:block;position:absolute;top:100%;left:0;right:0;background:rgba(7,11,20,.97);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid var(--line);padding:1.4rem 1.6rem 2rem;max-height:0;overflow:hidden;opacity:0;visibility:hidden;transition:max-height .35s var(--ease),opacity .3s ease,visibility .3s;box-shadow:0 30px 60px rgba(0,0,0,.6)}
+  .nav.menu-open{background:rgba(7,11,20,.98)!important;border-color:var(--line)!important;transform:none!important}
+  .nav.menu-open .mobile-drawer{max-height:85vh;opacity:1;visibility:visible}
+  .mobile-links{display:flex;flex-direction:column;gap:1.1rem}
+  .mobile-links a:not(.btn){font-size:1.15rem;color:var(--fg);text-decoration:none;padding-bottom:.4rem;border-bottom:1px solid rgba(255,255,255,.06);font-family:var(--display);letter-spacing:.02em;transition:color .2s}
+  .mobile-links a:not(.btn):hover{color:var(--amber-2)}
+  .mobile-links .btn{margin-top:.6rem;justify-content:center;width:100%}
   .g-grid{grid-template-columns:repeat(3,1fr)}
   .pair,.reel-in,.where-card,.reviews,.ag-card{grid-template-columns:1fr}
   .reel-in{justify-items:start}
@@ -366,11 +382,13 @@ footer nav .ic{width:1.05rem;height:1.05rem}
   .months{grid-template-columns:1fr}
   .panel{border-left:0;border-top:1px solid var(--line)}
   .scene-grid{grid-template-columns:minmax(0,1fr);gap:0}
-  .stage-col{top:.6rem;z-index:4;padding-top:max(.4rem,env(safe-area-inset-top,0px));background:linear-gradient(var(--scene-bg,transparent) 85%,transparent)}
+  .stage-col{top:calc(4.5rem + env(safe-area-inset-top,0px) + .4rem);z-index:4;padding-top:.2rem;background:transparent}
   .rail{width:100%;margin-bottom:.6rem}
   .rail button{font-size:.58rem;letter-spacing:.08em}
-  .stage{width:100%;aspect-ratio:4/4.6;max-height:62svh}
-  .cap{display:block}
+  .stage{width:100%;aspect-ratio:4/4.5;max-height:calc(100svh - 8.5rem)}
+  .cap{display:block;padding:1.2rem 1.2rem 1.3rem;background:linear-gradient(0deg,rgba(7,11,20,.95) 0%,rgba(7,11,20,.7) 65%,transparent 100%)}
+  .cap h3{font-size:clamp(1.4rem,4.5vw,1.9rem);line-height:1.05}
+  .cap p{margin-top:.4rem;font-size:clamp(.82rem,3vw,.92rem);line-height:1.35;color:rgba(238,240,246,.85)}
   .steps{padding-bottom:1rem}
   .step{min-height:36svh;opacity:1}
   .step>*{display:none}
@@ -381,8 +399,6 @@ footer nav .ic{width:1.05rem;height:1.05rem}
   .rev-side{width:100%;justify-content:space-between}
   body{font-size:1rem}
   .brand small{display:none}
-  .nav .btn span{display:none}
-  .nav .btn{padding:.7rem .9rem}
   .hero{padding-top:6rem;min-height:92svh}
   .hero-media img{object-position:66% 40%}
   .hero-shade{background:linear-gradient(180deg,rgba(7,11,20,.5) 0,rgba(7,11,20,.15) 28%,rgba(7,11,20,.78) 58%,var(--ink) 100%)}
@@ -427,6 +443,7 @@ footer nav .ic{width:1.05rem;height:1.05rem}
     <symbol id="i-sound" viewBox="0 0 24 24"><path d="M4 9.500h3.500L12 5.500v13l-4.500-4H4z"/><path d="M15.500 9a4.200 4.200 0 0 1 0 6M18 6.500a8 8 0 0 1 0 11"/></symbol>
     <symbol id="i-mute" viewBox="0 0 24 24"><path d="M4 9.500h3.500L12 5.500v13l-4.500-4H4z"/><path d="M16 9.500l5 5M21 9.500l-5 5"/></symbol>
     <symbol id="i-x" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5L5 19"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
     <symbol id="i-aframe" viewBox="0 0 32 32"><path d="M16 3L4 29h24L16 3z"/><path d="M16 3l5 26"/><path d="M9.500 19h13"/></symbol>
   </defs>
 </svg>
@@ -447,7 +464,22 @@ footer nav .ic{width:1.05rem;height:1.05rem}
       <a href="#agenda">Agenda</a>
       <a href="#local">Como chegar</a>
     </nav>
-    <a class="btn btn-amber mag" href="#agenda"><svg class="ic"><use href="#i-sun"/></svg><span>Ver agenda</span></a>
+    <a class="btn btn-amber mag nav-cta" href="#agenda"><svg class="ic"><use href="#i-sun"/></svg><span>Ver agenda</span></a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-label="Abrir menu" aria-expanded="false">
+      <svg class="ic ic-menu"><use href="#i-menu"/></svg>
+      <svg class="ic ic-close"><use href="#i-x"/></svg>
+    </button>
+  </div>
+  <div class="mobile-drawer" id="mobileDrawer">
+    <nav class="mobile-links" aria-label="Menu móvel">
+      <a href="#dia">Um dia na Vila</a>
+      <a href="#casal">A casa</a>
+      <a href="#fotos">Fotos</a>
+      <a href="#avaliacoes">Avaliações</a>
+      <a href="#agenda">Agenda</a>
+      <a href="#local">Como chegar</a>
+      <a class="btn btn-amber" href="#agenda"><svg class="ic"><use href="#i-sun"/></svg>Ver agenda</a>
+    </nav>
   </div>
 </header>
 
@@ -1062,11 +1094,41 @@ footer nav .ic{width:1.05rem;height:1.05rem}
   });
   setStep(0);
 
-  /* Nav, progresso, botão flutuante */
-  var nav_=$("#nav"), prog=$("#progress"), fab=$("#fab"), lastY=0;
+  /* Nav, progresso, botão flutuante, menu móvel */
+  var nav_=$("#nav"), prog=$("#progress"), fab=$("#fab"), menuBtn=$("#menuBtn"), lastY=0;
+  function toggleMobileMenu(open){
+    var isOpen = typeof open === "boolean" ? open : !nav_.classList.contains("menu-open");
+    nav_.classList.toggle("menu-open", isOpen);
+    if(menuBtn){
+      menuBtn.setAttribute("aria-expanded", isOpen);
+      menuBtn.setAttribute("aria-label", isOpen ? "Fechar menu" : "Abrir menu");
+    }
+  }
+  if(menuBtn){
+    menuBtn.addEventListener("click", function(e){
+      e.stopPropagation();
+      toggleMobileMenu();
+    });
+    $$(".mobile-links a").forEach(function(a){
+      a.addEventListener("click", function(){
+        toggleMobileMenu(false);
+      });
+    });
+    document.addEventListener("click", function(e){
+      if(nav_.classList.contains("menu-open") && !nav_.contains(e.target)){
+        toggleMobileMenu(false);
+      }
+    });
+    document.addEventListener("keydown", function(e){
+      if(e.key === "Escape" && nav_.classList.contains("menu-open")){
+        toggleMobileMenu(false);
+      }
+    });
+  }
   function onScroll(){
     var y=window.scrollY, h=document.documentElement.scrollHeight-vh;
     prog.style.transform="scaleX("+(h>0?clamp(y/h,0,1):0)+")";
+    if(nav_.classList.contains("menu-open")) return;
     nav_.classList.toggle("scrolled",y>40);
     nav_.classList.toggle("hide",y>520&&y>lastY+4);
     if(y<lastY-4||y<520)nav_.classList.remove("hide");
