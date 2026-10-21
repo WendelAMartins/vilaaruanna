@@ -749,20 +749,18 @@ footer nav .ic{width:1.05rem;height:1.05rem}
   var row = phrases.map(function(t){return "<span>"+t+"</span>"}).join("");
   $("#ticker").innerHTML = row+row+row+row;
 
-  /* Galeria (12 fotos, todas no mesmo formato) */
+  /* Galeria (todas as fotos existentes na pasta img/) */
   var photos = [
     ["deck","O deck no fim da tarde","50% 62%"],
     ["casal-varanda","A dois, na varanda","50% 70%"],
     ["vista-dia","O pôr do sol pelo vidro","45% 50%"],
     ["afrente-azul","O chalé na hora azul","60% 40%"],
     ["banheira","Banheira de frente para o vale","50% 62%"],
-    ["casal-vinho","Vinho ao ar livre, a dois","50% 40%"],
-    ["interior","Por dentro, com a luz da tarde","50% 50%"],
+    ["afrente-nuvens","O chalé sob as nuvens","50% 45%"],
     ["casal-silhueta","Entardecer a dois","86% 50%"],
     ["vista-noite","A cidade acesa, da janela","50% 60%"],
-    ["cortina-noite","A cidade acesa entre as cortinas","50% 40%"],
-    ["mesa-noite","Vinho e a cidade ao fundo","50% 50%"],
-    ["banheiro","Pia de pedra no banheiro","50% 55%"]
+    ["aquecedor","Aquecedor externo ao anoitecer","70% 40%"],
+    ["cerimonia","Cerimônia e celebração no deck","50% 50%"]
   ];
   var src = function(k){return k==="banheira" ? "img/reel-poster.webp" : "img/"+k+".webp"};
   var grid = $("#grid");
